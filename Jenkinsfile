@@ -1,28 +1,33 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
+    agent any
+    stages {
+        stage('Clone repository') {
           steps {
-            build 'PES2UG21CS182-1'
-            sh 'g++ main.cpp -o output'
+              checkout ([$class: 'GitSCM',
+               branches: [[name: '*/main']],
+                userRemoteConfigs: [[url: 'https://github.com/SHAMELESSKING1/PES2UG21CS182_Jenkins.git']]])
+            }
+         }
+        stage('Build') {
+            steps {
+                build 'PES2UG21CS211-1'
+                sh 'g++ main.cpp -o output'
             }
         }
-
-    stage('Test') {
-      steps {
-        sh './output'
-      }
+        stage( 'Test') {
+            steps {
+                sh './output'
+            }
+        }
+        stage( 'Deploy') {
+            steps {
+                echo 'deploy'
+            }
+        }
     }
-
-    stage('Deploy') {
-      steps {
-        echo 'deploy'
-      }
-    }  
-  }
-          
-  post{
-    failure{
-      error 'Pipeline failed'}
-  }
+    post{
+        failure{
+            error 'Pipeline failed'
+        }
+    }
 }
