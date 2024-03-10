@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
           steps {
-            build 'PES2UG21CS182-1'
+            build 'PES1UG21CS160-1'
             sh 'g++ main.cpp -o output'
             }
         }
@@ -20,7 +20,7 @@ pipeline {
       }
     }  
   }
-  
+          
   post{
     failure{
       error 'Pipeline failed'
