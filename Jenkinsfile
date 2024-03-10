@@ -6,7 +6,7 @@ pipeline {
             build 'PES2UG21CS182-1'
             sh 'g++ main.cpp -o output'
             }
-        }
+  }
 
     stage('Test') {
       steps {
@@ -21,9 +21,9 @@ pipeline {
     }  
   }
           
-  post{
-    failure{
+   post{
+     failure{
       echo 'Pipeline failed'
-    }
-  }
+       }
+      }
 }
